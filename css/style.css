@@ -2,32 +2,34 @@
    CSS CUSTOM PROPERTIES & VARIABLES
    =================================== */
 :root {
-    /* Colors - Light Mode */
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
+    /* Colors - Light Mode (Updated for more professional feel) */
+    --primary-color: #4f46e5;
+    /* Indigo */
+    --primary-dark: #3730a3;
     --primary-light: #818cf8;
-    --secondary-color: #ec4899;
-    --accent-color: #14b8a6;
+    --secondary-color: #10b981;
+    /* Emerald */
+    --accent-color: #6366f1;
 
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
     --text-light: #9ca3af;
 
     --bg-primary: #ffffff;
-    --bg-secondary: #f9fafb;
-    --bg-tertiary: #f3f4f6;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
 
-    --border-color: #e5e7eb;
+    --border-color: #e2e8f0;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --gradient-warm: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    /* Gradients - Professional & Technical */
+    --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    --gradient-secondary: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --gradient-accent: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
 
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -58,19 +60,19 @@
 
 /* Dark Mode Colors */
 [data-theme="dark"] {
-    --text-primary: #f9fafb;
-    --text-secondary: #d1d5db;
-    --text-light: #9ca3af;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-light: #94a3b8;
 
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-tertiary: #334155;
+    --bg-primary: #020617;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #1e293b;
 
-    --border-color: #334155;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+    --border-color: #1e293b;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8);
 }
 
 /* ===================================
@@ -544,6 +546,17 @@ textarea {
     justify-content: center;
 }
 
+.profile-card-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    background: var(--gradient-primary);
+    filter: blur(50px);
+    opacity: 0.2;
+    border-radius: var(--radius-2xl);
+    z-index: 0;
+}
+
 .profile-card {
     width: 400px;
     height: 400px;
@@ -555,6 +568,8 @@ textarea {
     position: relative;
     box-shadow: var(--shadow-xl);
     border: 1px solid var(--border-color);
+    z-index: 1;
+    overflow: hidden;
 }
 
 .profile-avatar {
@@ -563,17 +578,17 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.5s ease;
 }
 
-.avatar-placeholder {
-    font-size: 15rem;
-    color: var(--text-light);
-    opacity: 0.3;
+.profile-card:hover .profile-avatar {
+    transform: scale(1.05);
 }
 
 .floating-badge {
     position: absolute;
-    background: var(--bg-primary);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);
@@ -581,8 +596,14 @@ textarea {
     align-items: center;
     gap: var(--spacing-xs);
     font-weight: 600;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     animation: float 3s ease-in-out infinite;
+    z-index: 2;
+}
+
+[data-theme="dark"] .floating-badge {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .badge-1 {
@@ -1539,6 +1560,11 @@ textarea {
         height: 300px;
     }
 
+    .profile-card-glow {
+        width: 320px;
+        height: 320px;
+    }
+
     .footer-content {
         grid-template-columns: 1fr 1fr;
     }
@@ -1607,6 +1633,11 @@ textarea {
         height: 250px;
     }
 
+    .profile-card-glow {
+        width: 270px;
+        height: 270px;
+    }
+
     .avatar-placeholder {
         font-size: 10rem;
     }
@@ -1628,6 +1659,11 @@ textarea {
     .profile-card {
         width: 200px;
         height: 200px;
+    }
+
+    .profile-card-glow {
+        width: 220px;
+        height: 220px;
     }
 
     .floating-badge {
