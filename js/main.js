@@ -200,18 +200,33 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Simulate form submission
+        // Send form using Fetch API to Formspree
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<span>Sending...</span>';
         submitBtn.disabled = true;
 
-        setTimeout(() => {
-            showNotification('Message sent successfully!', 'success');
-            contactForm.reset();
+        const formData = new FormData(contactForm);
+
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                showNotification('Message sent successfully! I will get back to you soon.', 'success');
+                contactForm.reset();
+            } else {
+                showNotification('Oops! There was a problem sending your message.', 'error');
+            }
+        }).catch(error => {
+            showNotification('Oops! There was a problem sending your message.', 'error');
+        }).finally(() => {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-        }, 2000);
+        });
     });
 
     // ===================================
@@ -364,17 +379,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const heroTitle = document.querySelector('.hero-title');
 
     if (heroTitle) {
-        const lines = heroTitle.querySelectorAll('.title-line');
-        lines.forEach((line, index) => {
-            line.style.opacity = '0';
-            line.style.transform = 'translateY(20px)';
+        heroTitle.style.opacity = '0';
+        heroTitle.style.transform = 'translateY(20px)';
 
-            setTimeout(() => {
-                line.style.transition = 'all 0.6s ease-out';
-                line.style.opacity = '1';
-                line.style.transform = 'translateY(0)';
-            }, index * 200);
-        });
+        setTimeout(() => {
+            heroTitle.style.transition = 'all 0.8s ease-out';
+            heroTitle.style.opacity = '1';
+            heroTitle.style.transform = 'translateY(0)';
+        }, 300);
     }
 
     // ===================================

@@ -17,11 +17,11 @@ function initHeroAnimations() {
         y: 30,
         duration: 0.8
     })
-        .from('.title-line', {
+        .from('.hero-title', {
             opacity: 0,
             y: 50,
-            duration: 0.8,
-            stagger: 0.2
+            duration: 1,
+            ease: 'power4.out'
         }, '-=0.4')
         .from('.hero-description', {
             opacity: 0,
