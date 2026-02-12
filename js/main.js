@@ -200,33 +200,37 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Send form using Fetch API to Formspree
+        // Send data using FormSubmit AJAX
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<span>Sending...</span>';
         submitBtn.disabled = true;
 
-        const formData = new FormData(contactForm);
-
-        fetch(contactForm.action, {
-            method: 'POST',
-            body: formData,
+        fetch("https://formsubmit.co/ajax/nijamudeen0901@gmail.com", {
+            method: "POST",
             headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            }
-        }).then(response => {
-            if (response.ok) {
-                showNotification('Message sent successfully! I will get back to you soon.', 'success');
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                showNotification('Message sent successfully!', 'success');
                 contactForm.reset();
-            } else {
-                showNotification('Oops! There was a problem sending your message.', 'error');
-            }
-        }).catch(error => {
-            showNotification('Oops! There was a problem sending your message.', 'error');
-        }).finally(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        });
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            })
+            .catch(error => {
+                showNotification('Something went wrong. Please try again.', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
     });
 
     // ===================================
@@ -373,21 +377,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ===================================
-    // TYPING EFFECT FOR HERO SECTION
-    // ===================================
+    // Redundant typing effect removed - handled by GSAP in animations.js
+    /*
     const heroTitle = document.querySelector('.hero-title');
-
-    if (heroTitle) {
-        heroTitle.style.opacity = '0';
-        heroTitle.style.transform = 'translateY(20px)';
-
-        setTimeout(() => {
-            heroTitle.style.transition = 'all 0.8s ease-out';
-            heroTitle.style.opacity = '1';
-            heroTitle.style.transform = 'translateY(0)';
-        }, 300);
-    }
+    ...
+    */
 
     // ===================================
     // PARALLAX EFFECT FOR HERO BACKGROUND
